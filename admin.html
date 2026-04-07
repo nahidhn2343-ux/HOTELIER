@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotelier Admin - Manage Hotels</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>HOTELIER</h2>
+    <ul class="sidebar-menu">
+        <li>
+            <a href="booking.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; width: 100%;">
+                <i class="fa-solid fa-calendar-check"></i> Bookings
+            </a>
+        </li>
+        
+        <li class="active">
+            <a href="admin.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; width: 100%;">
+                <i class="fa-solid fa-hotel"></i> Product Management
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <h1 style="font-size: 24px; color: #333;">Hotel Management</h1>
+        <button class="btn-top" onclick="toggleModal(true)"><i class="fa-solid fa-plus"></i> Add New Hotel</button>
+    </div>
+
+    <div class="modal" id="hotelModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleModal(false)">&times;</span>
+            <h2 style="margin-top: 0; color: #001529; margin-bottom: 20px;">Add New Hotel</h2>
+            <form id="hotelForm">
+                <div class="grid-inputs">
+                    <div class="input-group">
+                        <label>Hotel Name</label>
+                        <input type="text" id="hotelName" placeholder="Hotel Name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Price ($)</label>
+                        <input type="number" id="hotelPrice" placeholder="1500" required>
+                    </div>
+                    <div class="input-group">
+                        <label>City</label>
+                        <input type="text" id="hotelCity" placeholder="Dhaka" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Country</label>
+                        <input type="text" id="hotelCountry" placeholder="Bangladesh" required>
+                    </div>
+                    <div class="input-group" style="grid-column: span 2;">
+                        <label>Image URL</label>
+                        <input type="text" id="hotelImg" placeholder="Direct link to image" required>
+                    </div>
+                    <div class="input-group" style="grid-column: span 2;">
+                        <label>About Hotel (Amenities & Details)</label>
+                        <textarea id="hotelAbout" placeholder="Describe the facilities like WiFi, Breakfast, Pool etc."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-top" style="width: 100%; margin-top: 10px;">Save Hotel Data</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <h3 style="margin-top: 0; margin-bottom: 20px; color: #555;">Existing Hotels List</h3>
+        <table class="hotel-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Hotel Name</th>
+                    <th>Location</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="hotelTableBody">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyALHhhiMDNG7CV8pTYL1x3wl47LKcCSKv4",
+        authDomain: "hotelier-cdd5a.firebaseapp.com",
+        projectId: "hotelier-cdd5a",
+        storageBucket: "hotelier-cdd5a.firebasestorage.app",
+        messagingSenderId: "716934110388",
+        appId: "1:716934110388:web:7610047728b10462948be1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.toggleModal = (show) => {
+        document.getElementById('hotelModal').style.display = show ? 'flex' : 'none';
+    };
+
+    document.getElementById('hotelForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const hotelData = {
+            Name: document.getElementById('hotelName').value,
+            Price: document.getElementById('hotelPrice').value,
+            City: document.getElementById('hotelCity').value,
+            Country: document.getElementById('hotelCountry').value,
+            "Image-url": document.getElementById('hotelImg').value,
+            About: document.getElementById('hotelAbout').value
+        };
+
+        try {
+            await addDoc(collection(db, "hotels"), hotelData);
+            alert("Hotel successfully added!");
+            toggleModal(false);
+            document.getElementById('hotelForm').reset();
+            loadHotels();
+        } catch (err) { alert("Error: " + err.message); }
+    });
+
+    async function loadHotels() {
+        const tableBody = document.getElementById('hotelTableBody');
+        tableBody.innerHTML = "<tr><td colspan='5'>Loading...</td></tr>";
+        const querySnapshot = await getDocs(collection(db, "hotels"));
+        tableBody.innerHTML = "";
+        querySnapshot.forEach((docSnap) => {
+            const hotel = docSnap.data();
+            const id = docSnap.id;
+            tableBody.innerHTML += `
+                <tr>
+                    <td><img src="${hotel['Image-url']}" class="thumb"></td>
+                    <td style="font-weight: 600;">${hotel.Name}</td>
+                    <td>${hotel.City}, ${hotel.Country}</td>
+                    <td style="color: #2c3e50; font-weight: 700;">${hotel.Price} $</td>
+                    <td class="action-btns">
+                        <i class="fa-solid fa-edit" onclick="alert('Edit logic goes here')"></i>
+                        <i class="fa-solid fa-trash" onclick="deleteHotel('${id}')"></i>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    window.deleteHotel = async (id) => {
+        if(confirm("Delete this hotel?")) {
+            await deleteDoc(doc(db, "hotels", id));
+            loadHotels();
+        }
+    };
+
+    loadHotels();
+</script>
+</body>
+</html>

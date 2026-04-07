@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOTELIER - Global Booking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container">
+        <div class="logo">
+            <img src="img/logo1.png" alt="Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" style="color: #568c9f;">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="login.html">
+                <button class="btn-login">Login</button>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div id="home-main-content">
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>Find Your Next Stay Anywhere</h1>
+            <p>Search deals on hotels, homes, and much more...</p>
+            <div class="search-container">
+                <div class="search-box">
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-location-dot"></i> Destination</label>
+                        <input type="text" id="destination" placeholder="City & Country">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-calendar-check"></i> Check-in</label>
+                        <input type="text" id="checkin" placeholder="Select Date">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-calendar-xmark"></i> Check-out</label>
+                        <input type="text" id="checkout" placeholder="Select Date">
+                    </div>
+                    <div class="input-group guest-selector" id="guestTrigger">
+                        <label><i class="fa-solid fa-user"></i> Guests & Rooms</label>
+                        <span class="display-text" id="guestDisplay">2 Adults, 1 Room</span>
+                        <div class="guest-dropdown" id="guestDropdown">
+                            <div class="counter-item">
+                                <span>Adults</span>
+                                <div class="controls">
+                                    <button type="button" onclick="updateCount('adults', -1)">-</button>
+                                    <span id="adults-count">2</span>
+                                    <button type="button" onclick="updateCount('adults', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="counter-item">
+                                <span>Rooms</span>
+                                <div class="controls">
+                                    <button type="button" onclick="updateCount('rooms', -1)">-</button>
+                                    <span id="rooms-count">1</span>
+                                    <button type="button" onclick="updateCount('rooms', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-search">Search</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section-header">
+        <div class="container">
+            <h2 class="main-title">Most Popular Cities & Hotels</h2>
+            <p class="sub-title">Explore our handpicked selection of top-rated destinations and luxury stays worldwide, trusted by thousands of travelers.</p>
+        </div>
+    </section>
+
+    <section class="offers-ticker">
+        <div class="ticker-wrapper l-to-r">
+            <div class="ticker-content">
+                <div class="offer-card"><img src="img/hotel1.jpg" alt=""> <div class="offer-info"><h4>Grand Palace</h4><p><span class="old-price">$200</span> <span class="new-price">$140</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel2.jpg" alt=""> <div class="offer-info"><h4>Beach Resort</h4><p><span class="old-price">$150</span> <span class="new-price">$99</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel3.jpg" alt=""> <div class="offer-info"><h4>Labuan Bajo</h4><p><span class="old-price">$100</span> <span class="new-price">$75</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel4.jpg" alt=""> <div class="offer-info"><h4>Mountain View</h4><p><span class="old-price">$300</span> <span class="new-price">$210</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel5.jpg" alt=""> <div class="offer-info"><h4>Luxe Villa</h4><p><span class="old-price">$500</span> <span class="new-price">$350</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel6.jpg" alt=""> <div class="offer-info"><h4>Azure bay resort</h4><p><span class="old-price">$200</span> <span class="new-price">$140</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel7.jpg" alt=""> <div class="offer-info"><h4>Royal Riviera Palace</h4><p><span class="old-price">$250</span> <span class="new-price">$119</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel8.jpg" alt=""> <div class="offer-info"><h4>Oasis Lagoon Resort</h4><p><span class="old-price">$100</span> <span class="new-price">$75</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel9.jpg" alt=""> <div class="offer-info"><h4>Eco Haven Resort</h4><p><span class="old-price">$150</span> <span class="new-price">$90</span></p></div></div>
+                <div class="offer-card"><img src="img/hotel10.jpg" alt=""> <div class="offer-info"><h4>Golden Dome Hotel</h4><p><span class="old-price">$150</span> <span class="new-price">$80</span></p></div></div>
+            </div>
+        </div>
+
+        <div class="ticker-wrapper r-to-l">
+            <div class="ticker-content">
+                <div class="city-card"><img src="img/city1.jpg" alt=""> <div class="city-info"><h4>Dubai</h4><p>$150 - $1200</p></div></div>
+                <div class="city-card"><img src="img/city2.jpg" alt=""> <div class="city-info"><h4>New York</h4><p>$200 - $2500</p></div></div>
+                <div class="city-card"><img src="img/city3.jpg" alt=""> <div class="city-info"><h4>London</h4><p>$180 - $1500</p></div></div>
+                <div class="city-card"><img src="img/city4.jpg" alt=""> <div class="city-info"><h4>Paris</h4><p>$120 - $2000</p></div></div>
+                <div class="city-card"><img src="img/city5.jpg" alt=""> <div class="city-info"><h4>Tokyo</h4><p>$90 - $1100</p></div></div>
+                <div class="city-card"><img src="img/city6.jpg" alt=""> <div class="city-info"><h4>Jakarta</h4><p>$50 - $1200</p></div></div>
+                <div class="city-card"><img src="img/city7.jpg" alt=""> <div class="city-info"><h4>Kuala Lumpur</h4><p>$100 - $2500</p></div></div>
+                <div class="city-card"><img src="img/city8.jpg" alt=""> <div class="city-info"><h4>Dhoka</h4><p>$20 - $1500</p></div></div>
+                <div class="city-card"><img src="img/city9.jpg" alt=""> <div class="city-info"><h4>sagrada Familia</h4><p>$120 - $2000</p></div></div>
+                <div class="city-card"><img src="img/city10.jpg" alt=""> <div class="city-info"><h4>Chefchaouen</h4><p>$80 - $1100</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-header">
+        <div class="container">
+            <h2 class="main-title">Why People Choose Us</h2>
+            <p class="sub-title">We provide a seamless booking experience with verified reviews, exclusive deals, and 24/7 assistance to make your journey unforgettable.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-tags"></i></div>
+                    <h3>Best Price Guarantee</h3>
+                    <p>We ensure the lowest booking rates for your stay.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+                    <h3>24/7 Customer Support</h3>
+                    <p>Our team is available round the clock to assist you.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-calendar-xmark"></i></div>
+                    <h3>Free Cancellation</h3>
+                    <p>Flexible booking with no extra cancellation fees.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Safe & Secure</h3>
+                    <p>Your payments and data are protected by top security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<section class="container" id="hotelResults" style="margin-top: 40px; display: none; grid-template-columns: 1.5fr 1fr; gap: 20px;">
+    <div id="hotelList" style="display: flex; flex-direction: column; gap: 20px;"></div>
+    
+    <div id="imagePreview" style="position: sticky; top: 90px; height: 500px; border-radius: 15px; overflow: hidden; background: #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div id="previewImg" style="width: 100%; height: 100%; background-size: cover; background-position: center; display: flex; align-items: flex-end;">
+            <div style="background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 20px; width: 100%;">
+                <h2 id="previewName" style="margin: 0;">Select a hotel</h2>
+                <p id="previewLoc" style="margin: 5px 0; opacity: 0.8;"></p>
+                <h3 id="previewPrice" style="margin: 0; color: #ff6d00;"></h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>PLAN & BOOK</h3>
+                <ul><li><a href="#">Flights</a></li><li><a href="#">Hotels</a></li><li><a href="#">Car Rentals</a></li><li><a href="#">Flight Status</a></li><li><a href="#">Promo Codes</a></li><li><a href="#">Travel Guides</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h3>COMPANY & SUPPORT</h3>
+                <ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">FAQs</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Updates</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h3>BUSINESS & PARTNERS</h3>
+                <ul><li><a href="#">Affiliates</a></li><li><a href="#">Advertise</a></li><li><a href="#">Hoteliers</a></li><li><a href="#">Business Travel</a></li><li><a href="#">Data Privacy Policy</a></li><li><a href="#">Terms & Conditions</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h3>DOWNLOAD</h3>
+                <ul><li><a href="#">App (iOS)</a></li><li><a href="#">App (Android)</a></li><li><a href="#">App (ChatGPT)</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>Copyright ©️2026 HOTELIER Pte Ltd. All Rights Reserved</p>
+                <p>HOTELIER Pte Ltd. Travel License No. 03513</p>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="script.js"></script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, query, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyALHhhiMDNG7CV8pTYL1x3wl47LKcCSKv4",
+        authDomain: "hotelier-cdd5a.firebaseapp.com",
+        projectId: "hotelier-cdd5a",
+        storageBucket: "hotelier-cdd5a.firebasestorage.app",
+        messagingSenderId: "716934110388",
+        appId: "1:716934110388:web:7610047728b10462948be1",
+        measurementId: "G-BYLJ7FDQX5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.querySelector('.btn-search').addEventListener('click', async (e) => {
+        e.preventDefault();
+        const destInput = document.getElementById('destination').value.trim().toLowerCase();
+        const resultsContainer = document.getElementById('hotelResults');
+        const homeMain = document.getElementById('home-main-content');
+        const hotelList = document.getElementById('hotelList');
+        
+        if (!destInput) return alert("Please enter a city!");
+
+        // হোম কন্টেন্ট সরিয়ে দিয়ে রেজাল্ট গ্রিড দেখানো
+        homeMain.style.display = 'none';
+        resultsContainer.style.display = 'grid';
+        hotelList.innerHTML = "<p style='text-align: center;'>Searching...</p>";
+
+        try {
+            // Firestore-এ সরাসরি কেস-ইনসেনসিটিভ সার্চ কুয়েরি করা যায় না, তাই সব ডাটা এনে ফিল্টার করছি
+            const querySnapshot = await getDocs(collection(db, "hotels"));
+            hotelList.innerHTML = "";
+            let found = false;
+
+            querySnapshot.forEach((doc) => {
+                const hotel = doc.data();
+                // ডাটাবেজের City ফিল্ড এবং ইউজারের ইনপুট উভয়কেই ছোট হাতের অক্ষরে রূপান্তর করে তুলনা করা হচ্ছে
+                if (hotel.City && hotel.City.toLowerCase() === destInput) {
+                    found = true;
+                    const card = document.createElement('div');
+                    card.className = 'hotel-card';
+                    card.style = "display: flex; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff; cursor: pointer; transition: 0.3s; margin-bottom: 20px;";
+                    
+                    card.innerHTML = `
+                        <img src="${hotel['Image-url']}" alt="${hotel.Name}" style="width: 200px; height: 150px; object-fit: cover;">
+                        <div style="padding: 15px; flex: 1;">
+                            <h3 style="margin: 0; color: #003580;">${hotel.Name}</h3>
+                            <p style="color: #666; margin: 5px 0;"><i class="fa-solid fa-location-dot"></i> ${hotel.City}, ${hotel.Country}</p>
+                            <p style="font-weight: bold; color: #333;">Price: ${hotel.Price} $</p>
+                            <button style="background: #003580; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;">Book Now</button>
+                        </div>
+                    `;
+
+                    card.onclick = () => {
+                        document.getElementById('previewImg').style.backgroundImage = `url('${hotel['Image-url']}')`;
+                        document.getElementById('previewName').innerText = hotel.Name;
+                        document.getElementById('previewLoc').innerText = hotel.City + ", " + hotel.Country;
+                        document.getElementById('previewPrice').innerText = hotel.Price + " $";
+                    };
+
+                    hotelList.appendChild(card);
+                }
+            });
+
+            if (!found) {
+                // ইনপুট দেওয়া বানানটি হুবহু দেখানোর জন্য মূল টেক্সটটি ব্যবহার করা হয়েছে
+                const originalInput = document.getElementById('destination').value;
+                hotelList.innerHTML = "<p style='text-align: center;'>No hotels found in " + originalInput + ".</p>";
+            } else {
+                // প্রথম পাওয়া হোটেলের ডাটা অটোমেটিক প্রিভিউতে দেখানো
+                const firstHotelCard = hotelList.querySelector('.hotel-card');
+                if (firstHotelCard) firstHotelCard.click();
+            }
+
+        } catch (error) {
+            console.error(error);
+            hotelList.innerHTML = "<p>Error loading data.</p>";
+        }
+    });
+</script>
+</body>
+</html>

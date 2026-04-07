@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotelier - Booking Table</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="admin.css"> </head>
+<body>
+
+<div class="sidebar">
+    <h2>HOTELIER</h2>
+    <ul class="sidebar-menu">
+        <li class="active"><i class="fa-solid fa-calendar-check"></i> Bookings</li>
+        <li><a href="admin.html" style="color:white; text-decoration:none;"><i class="fa-solid fa-hotel"></i> Management</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <h1>Recent Orders</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="hotel-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Location</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="bookingTableBody">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyALHhhiMDNG7CV8pTYL1x3wl47LKcCSKv4",
+        authDomain: "hotelier-cdd5a.firebaseapp.com",
+        projectId: "hotelier-cdd5a",
+        storageBucket: "hotelier-cdd5a.firebasestorage.app",
+        messagingSenderId: "716934110388",
+        appId: "1:716934110388:web:7610047728b10462948be1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadBookings() {
+        const tableBody = document.getElementById('bookingTableBody');
+        tableBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Loading Data...</td></tr>";
+
+        try {
+            const querySnapshot = await getDocs(collection(db, "bookings"));
+            tableBody.innerHTML = "";
+
+            if (querySnapshot.empty) {
+                tableBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No data found.</td></tr>";
+                return;
+            }
+
+            querySnapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const id = docSnap.id;
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>#${id.substring(0,6).toUpperCase()}</td>
+                    <td><span style="color:blue; cursor:pointer; font-weight:bold;">${data.customerName || 'No Name'}</span></td>
+                    <td>${data.city || 'N/A'}</td>
+                    <td>${data.bookingDate || 'Recent'}</td>
+                    <td><span style="background:#fff3cd; padding:4px 8px; border-radius:4px;">${data.status || 'Pending'}</span></td>
+                    <td><i class="fa-solid fa-trash" style="color:red; cursor:pointer;" onclick="deleteThis('${id}')"></i></td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+            tableBody.innerHTML = "<tr><td colspan='6' style='text-align:center; color:red;'>There was a problem loading data. Check the console.</td></tr>";
+        }
+    }
+
+    // ডিলিট ফাংশন উইন্ডো অবজেক্টে সেট করা (যাতে HTML থেকে কাজ করে)
+    window.deleteThis = async (id) => {
+        if(confirm("Do you want to delete the order?")) {
+            await deleteDoc(doc(db, "bookings", id));
+            loadBookings();
+        }
+    };
+
+    loadBookings();
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotelier - Login & Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="login-page">
+
+    <div class="main-container">
+        <div class="form-side">
+            <div class="top-nav">
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to website</a>
+            </div>
+
+            <div id="login-section" class="form-wrapper">
+                <div class="header">
+                    <h2>Welcome back!</h2>
+                    <p>Enter your credentials to access your account.</p>
+                </div>
+
+                <div class="input-box">
+                    <label>Email address</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+
+                <div class="input-box">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+
+                <div class="flex-row">
+                    <label><input type="checkbox"> Remember for 30 days</label>
+                    <a href="#" class="forgot">Forgot password?</a>
+                </div>
+
+                <button class="btn-primary" id="login-btn">Log In</button>
+
+                <div class="divider"><span>Or login with</span></div>
+
+                <div class="social-btns">
+                    <button class="google-btn social-google"><i class="fa-brands fa-google"></i> Google</button>
+                    <button class="fb-btn social-fb"><i class="fa-brands fa-facebook"></i> Facebook</button>
+                </div>
+
+                <p class="footer-text">Don't have an account? <a href="#" id="to-signup">Create an account</a></p>
+            </div>
+
+            <div id="signup-section" class="form-wrapper" style="display: none;">
+                <div class="header">
+                    <h2>Create an account</h2>
+                    <p>Start your journey with us today.</p>
+                </div>
+
+                <div class="name-row">
+                    <div class="input-box">
+                        <label>First Name</label>
+                        <input type="text" id="fname" placeholder="First Name">
+                    </div>
+                    <div class="input-box">
+                        <label>Last Name</label>
+                        <input type="text" id="lname" placeholder="Last Name">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label>Email address</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email">
+                </div>
+
+                <div class="input-box">
+                    <label>Password</label>
+                    <input type="password" id="signup-password" placeholder="Create a password">
+                </div>
+
+                <button class="btn-primary" id="signup-btn">Sign Up</button>
+
+                <div class="divider"><span>Or sign up with</span></div>
+
+                <div class="social-btns">
+                    <button class="google-btn social-google"><i class="fa-brands fa-google"></i> Google</button>
+                    <button class="fb-btn social-fb"><i class="fa-brands fa-facebook"></i> Facebook</button>
+                </div>
+
+                <p class="footer-text">Already have an account? <a href="#" id="to-login">Log In</a></p>
+            </div>
+        </div>
+
+        <div class="image-side">
+            <img src="img/login2.jpg" alt="Hotel View">
+            <div class="img-content">
+                <h3>Discover the world's best hotels & resorts.</h3>
+                <p>Over 10,000+ people trust Hotelier for their perfect stay.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            sendEmailVerification,
+            GoogleAuthProvider,
+            FacebookAuthProvider,
+            signInWithPopup 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // আপনার দেওয়া নতুন Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyALHhhiMDNG7CV8pTYL1x3wl47LKcCSKv4",
+            authDomain: "hotelier-cdd5a.firebaseapp.com",
+            projectId: "hotelier-cdd5a",
+            storageBucket: "hotelier-cdd5a.firebasestorage.app",
+            messagingSenderId: "716934110388",
+            appId: "1:716934110388:web:7610047728b10462948be1",
+            measurementId: "G-BYLJ7FDQX5"
+        };
+
+        // Firebase ইনিশিয়ালাইজ করা
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+        const fbProvider = new FacebookAuthProvider();
+
+        // ফর্ম সুইচিং লজিক
+        const loginSection = document.getElementById('login-section');
+        const signupSection = document.getElementById('signup-section');
+        
+        document.getElementById('to-signup').onclick = (e) => {
+            e.preventDefault();
+            loginSection.style.display = 'none';
+            signupSection.style.display = 'block';
+        };
+
+        document.getElementById('to-login').onclick = (e) => {
+            e.preventDefault();
+            signupSection.style.display = 'none';
+            loginSection.style.display = 'block';
+        };
+
+        // সাইন আপ এবং ইমেল ভেরিফিকেশন
+        document.getElementById('signup-btn').onclick = async () => {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            if(!email || !password) return alert("Please fill all fields!");
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                await sendEmailVerification(auth.currentUser);
+                alert("Account created! A verification email has been sent. Please check your inbox before logging in.");
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        };
+
+        // লগইন লজিক
+        document.getElementById('login-btn').onclick = async () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                if(auth.currentUser.emailVerified) {
+                    alert("Success! Welcome to Hotelier.");
+                    window.location.href = "index.html"; // আপনার মেইন পেজের নাম এখানে দিন
+                } else {
+                    alert("Please verify your email first! Check your inbox.");
+                }
+            } catch (error) {
+                alert("Login failed: " + error.message);
+            }
+        };
+
+        // গুগল লগইন
+        document.querySelectorAll('.social-google').forEach(btn => {
+            btn.onclick = async () => {
+                try {
+                    await signInWithPopup(auth, googleProvider);
+                    window.location.href = "index.html";
+                } catch (error) {
+                    alert("Google login error: " + error.message);
+                }
+            };
+        });
+
+        // ফেসবুক লগইন
+        document.querySelectorAll('.social-fb').forEach(btn => {
+            btn.onclick = async () => {
+                try {
+                    await signInWithPopup(auth, fbProvider);
+                    window.location.href = "index.html";
+                } catch (error) {
+                    alert("Facebook login error: " + error.message);
+                }
+            };
+        });
+    </script>
+</body>
+</html>
