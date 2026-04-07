@@ -80,7 +80,7 @@
     <section class="section-header">
         <div class="container">
             <h2 class="main-title">Most Popular Cities & Hotels</h2>
-            <p class="sub-title">Explore our handpicked selection of top-rated destinations and luxury stays worldwide, trusted by thousands of travelers.</p>
+            <p class="sub-title">Explore our handpicked selection of top-rated destinations and luxury stays worldwide.</p>
         </div>
     </section>
 
@@ -99,7 +99,6 @@
                 <div class="offer-card"><img src="img/hotel10.jpg" alt=""> <div class="offer-info"><h4>Golden Dome Hotel</h4><p><span class="old-price">$150</span> <span class="new-price">$80</span></p></div></div>
             </div>
         </div>
-
         <div class="ticker-wrapper r-to-l">
             <div class="ticker-content">
                 <div class="city-card"><img src="img/city1.jpg" alt=""> <div class="city-info"><h4>Dubai</h4><p>$150 - $1200</p></div></div>
@@ -116,13 +115,6 @@
         </div>
     </section>
 
-    <section class="section-header">
-        <div class="container">
-            <h2 class="main-title">Why People Choose Us</h2>
-            <p class="sub-title">We provide a seamless booking experience with verified reviews, exclusive deals, and 24/7 assistance to make your journey unforgettable.</p>
-        </div>
-    </section>
-
     <section class="features">
         <div class="container">
             <div class="feature-grid">
@@ -133,18 +125,18 @@
                 </div>
                 <div class="feature-card">
                     <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
-                    <h3>24/7 Customer Support</h3>
+                    <h3>24/7 Support</h3>
                     <p>Our team is available round the clock to assist you.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-box"><i class="fa-solid fa-calendar-xmark"></i></div>
                     <h3>Free Cancellation</h3>
-                    <p>Flexible booking with no extra cancellation fees.</p>
+                    <p>Flexible booking with no extra fees.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
                     <h3>Safe & Secure</h3>
-                    <p>Your payments and data are protected by top security.</p>
+                    <p>Your payments and data are protected.</p>
                 </div>
             </div>
         </div>
@@ -153,7 +145,6 @@
 
 <section class="container" id="hotelResults" style="margin-top: 40px; display: none; grid-template-columns: 1.5fr 1fr; gap: 20px;">
     <div id="hotelList" style="display: flex; flex-direction: column; gap: 20px;"></div>
-    
     <div id="imagePreview" style="position: sticky; top: 90px; height: 500px; border-radius: 15px; overflow: hidden; background: #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
         <div id="previewImg" style="width: 100%; height: 100%; background-size: cover; background-position: center; display: flex; align-items: flex-end;">
             <div style="background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 20px; width: 100%;">
@@ -164,42 +155,48 @@
         </div>
     </div>
 </section>
-
 <footer class="main-footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
                 <h3>PLAN & BOOK</h3>
-                <ul><li><a href="#">Flights</a></li><li><a href="#">Hotels</a></li><li><a href="#">Car Rentals</a></li><li><a href="#">Flight Status</a></li><li><a href="#">Promo Codes</a></li><li><a href="#">Travel Guides</a></li></ul>
+                <ul><li><a href="#">Flights</a></li><li><a href="#">Hotels</a></li><li><a href="#">Car Rentals</a></li></ul>
             </div>
             <div class="footer-col">
-                <h3>COMPANY & SUPPORT</h3>
-                <ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">FAQs</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Updates</a></li></ul>
+                <h3>COMPANY</h3>
+                <ul><li><a href="#">About Us</a></li><li><a href="#">FAQs</a></li><li><a href="#">Contact Us</a></li></ul>
             </div>
             <div class="footer-col">
-                <h3>BUSINESS & PARTNERS</h3>
-                <ul><li><a href="#">Affiliates</a></li><li><a href="#">Advertise</a></li><li><a href="#">Hoteliers</a></li><li><a href="#">Business Travel</a></li><li><a href="#">Data Privacy Policy</a></li><li><a href="#">Terms & Conditions</a></li></ul>
+                <h3>PARTNERS</h3>
+                <ul><li><a href="#">Affiliates</a></li><li><a href="#">Hoteliers</a></li><li><a href="#">Privacy Policy</a></li></ul>
             </div>
             <div class="footer-col">
                 <h3>DOWNLOAD</h3>
-                <ul><li><a href="#">App (iOS)</a></li><li><a href="#">App (Android)</a></li><li><a href="#">App (ChatGPT)</a></li></ul>
+                <ul><li><a href="#">App (iOS)</a></li><li><a href="#">App (Android)</a></li></ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <div class="copyright">
-                <p>Copyright ©️2026 HOTELIER Pte Ltd. All Rights Reserved</p>
-                <p>HOTELIER Pte Ltd. Travel License No. 03513</p>
-            </div>
-            <div class="social-links">
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
+            <p>Copyright ©️2026 HOTELIER Pte Ltd. All Rights Reserved</p>
         </div>
     </div>
 </footer>
+
+<div class="booking-modal" id="bookingModal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img src="" id="m-img" class="modal-hotel-img" style="width:100%; height:200px; object-fit:cover;">
+        <div class="modal-body" style="padding:20px;">
+            <h2 id="m-name" style="margin:0; color:#003580;"></h2>
+            <p id="m-loc" style="color:#666; margin:5px 0;"></p>
+            <p id="m-price" style="font-weight:bold; font-size:20px; color:#ff6d00;"></p>
+            <hr>
+            <p style="font-size:14px; color:#444; line-height:1.6;">
+                Experience luxury and comfort in the heart of the city. This hotel offers world-class amenities and top-rated services.
+            </p>
+            <button style="background:#003580; color:white; border:none; padding:12px; width:100%; border-radius:5px; font-weight:bold; cursor:pointer; margin-top:15px;">Confirm Booking Now</button>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="script.js"></script>
@@ -221,6 +218,9 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    const modal = document.getElementById('bookingModal');
+    const closeModal = document.getElementById('closeModal');
+
     document.querySelector('.btn-search').addEventListener('click', async (e) => {
         e.preventDefault();
         const destInput = document.getElementById('destination').value.trim().toLowerCase();
@@ -230,20 +230,17 @@
         
         if (!destInput) return alert("Please enter a city!");
 
-        // হোম কন্টেন্ট সরিয়ে দিয়ে রেজাল্ট গ্রিড দেখানো
         homeMain.style.display = 'none';
         resultsContainer.style.display = 'grid';
         hotelList.innerHTML = "<p style='text-align: center;'>Searching...</p>";
 
         try {
-            // Firestore-এ সরাসরি কেস-ইনসেনসিটিভ সার্চ কুয়েরি করা যায় না, তাই সব ডাটা এনে ফিল্টার করছি
             const querySnapshot = await getDocs(collection(db, "hotels"));
             hotelList.innerHTML = "";
             let found = false;
 
             querySnapshot.forEach((doc) => {
                 const hotel = doc.data();
-                // ডাটাবেজের City ফিল্ড এবং ইউজারের ইনপুট উভয়কেই ছোট হাতের অক্ষরে রূপান্তর করে তুলনা করা হচ্ছে
                 if (hotel.City && hotel.City.toLowerCase() === destInput) {
                     found = true;
                     const card = document.createElement('div');
@@ -256,10 +253,21 @@
                             <h3 style="margin: 0; color: #003580;">${hotel.Name}</h3>
                             <p style="color: #666; margin: 5px 0;"><i class="fa-solid fa-location-dot"></i> ${hotel.City}, ${hotel.Country}</p>
                             <p style="font-weight: bold; color: #333;">Price: ${hotel.Price} $</p>
-                            <button style="background: #003580; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;">Book Now</button>
+                            <button class="book-now-btn" style="background: #003580; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;">Book Now</button>
                         </div>
                     `;
 
+                    // "Book Now" বাটনে ক্লিক করলে পপ-আপ দেখানোর লজিক
+                    card.querySelector('.book-now-btn').onclick = (event) => {
+                        event.stopPropagation(); // কার্ডের ক্লিক ইভেন্ট থামানোর জন্য
+                        document.getElementById('m-img').src = hotel['Image-url'];
+                        document.getElementById('m-name').innerText = hotel.Name;
+                        document.getElementById('m-loc').innerText = hotel.City + ", " + hotel.Country;
+                        document.getElementById('m-price').innerText = hotel.Price + " $";
+                        modal.classList.add('active');
+                    };
+
+                    // কার্ডে ক্লিক করলে ডেস্কটপ প্রিভিউ
                     card.onclick = () => {
                         document.getElementById('previewImg').style.backgroundImage = `url('${hotel['Image-url']}')`;
                         document.getElementById('previewName').innerText = hotel.Name;
@@ -272,11 +280,8 @@
             });
 
             if (!found) {
-                // ইনপুট দেওয়া বানানটি হুবহু দেখানোর জন্য মূল টেক্সটটি ব্যবহার করা হয়েছে
-                const originalInput = document.getElementById('destination').value;
-                hotelList.innerHTML = "<p style='text-align: center;'>No hotels found in " + originalInput + ".</p>";
-            } else {
-                // প্রথম পাওয়া হোটেলের ডাটা অটোমেটিক প্রিভিউতে দেখানো
+                hotelList.innerHTML = "<p style='text-align: center;'>No hotels found in " + destInput + ".</p>";
+            } else if (window.innerWidth > 768) {
                 const firstHotelCard = hotelList.querySelector('.hotel-card');
                 if (firstHotelCard) firstHotelCard.click();
             }
@@ -286,6 +291,10 @@
             hotelList.innerHTML = "<p>Error loading data.</p>";
         }
     });
+
+    // পপ-আপ বন্ধ করার লজিক
+    closeModal.onclick = () => modal.classList.remove('active');
+    window.onclick = (e) => { if (e.target == modal) modal.classList.remove('active'); };
 </script>
 </body>
 </html>

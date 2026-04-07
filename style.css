@@ -1355,3 +1355,71 @@ body {
         flex: 1;
     }
 }
+
+
+
+/* --- বিদ্যমান CSS এর নিচে এই অংশটুকু যোগ করুন --- */
+
+/* মোবাইল রেসপন্সিভনেস: ডানদিকের ইমেজ প্যানেল হাইড করা */
+@media screen and (max-width: 768px) {
+    #hotelResults {
+        grid-template-columns: 1fr !important; /* মোবাইলে শুধু লিস্ট দেখাবে */
+    }
+    #imagePreview {
+        display: none !important; /* বাম পাশের ইমেজ প্রিভিউ হাইড */
+    }
+    .hotel-card {
+        flex-direction: column !important;
+        height: auto !important;
+    }
+    .hotel-card img {
+        width: 100% !important;
+        height: 200px !important;
+    }
+}
+
+/* বুকিং পপ-আপ (Modal) স্টাইল */
+.booking-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.booking-modal.active { display: flex; }
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.modal-body { padding: 20px; }
+.modal-hotel-img { width: 100%; height: 200px; object-fit: cover; }
+.btn-confirm-final {
+    background: #003580;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
