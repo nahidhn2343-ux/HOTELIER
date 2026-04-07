@@ -1010,6 +1010,148 @@ body {
     text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
+
+
+
+/* বুকিং পপ-আপ (Modal) স্টাইল */
+.booking-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.booking-modal.active { display: flex; }
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.modal-body { padding: 20px; }
+.modal-hotel-img { width: 100%; height: 200px; object-fit: cover; }
+.btn-confirm-final {
+    background: #003580;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+
+
+
+
+body {
+    background-color: #f0f2f5;
+    font-family: 'Inter', sans-serif;
+}
+
+.booking-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.booking-card {
+    background: #fff;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+}
+
+/* টাইটেল এবং টেক্সট চিকন করার জন্য */
+.booking-card h2 {
+    color: #003580;
+    font-weight: 300; /* একদম চিকন ফন্ট */
+    margin-bottom: 5px;
+}
+
+.input-group label {
+    font-weight: 400; /* চিকন লেবেল */
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #555;
+    display: block;
+}
+
+/* ইনপুট ফিল্ড ও আইকন স্টাইল */
+.field-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-with-icon i {
+    position: absolute;
+    left: 12px;
+    color: #aaa;
+    font-size: 16px;
+}
+
+.field-with-icon input {
+    width: 100%;
+    padding: 12px 12px 12px 40px; /* আইকনের জন্য জায়গা */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+/* কান্ট্রি কোড ইনপুটের স্পেশাল স্টাইল */
+.iti { width: 100%; }
+.field-with-icon.tel-field input {
+    padding-left: 50px !important;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.btn-confirm-booking {
+    width: 100%;
+    background: #003580;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+    .input-grid { grid-template-columns: 1fr; }
+}
+
+
+
+
 /* রেসপন্সিভনেস */
 @media (max-width: 992px) {
     .image-side { display: none; }
@@ -1376,50 +1518,4 @@ body {
         width: 100% !important;
         height: 200px !important;
     }
-}
-
-/* বুকিং পপ-আপ (Modal) স্টাইল */
-.booking-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-.booking-modal.active { display: flex; }
-.modal-content {
-    background: white;
-    width: 100%;
-    max-width: 500px;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-}
-.close-modal {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 30px;
-    cursor: pointer;
-    color: #fff;
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-.modal-body { padding: 20px; }
-.modal-hotel-img { width: 100%; height: 200px; object-fit: cover; }
-.btn-confirm-final {
-    background: #003580;
-    color: white;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
 }

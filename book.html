@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Your Booking - HOTELIER</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="book-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container">
+        <div class="logo"><img src="img/logo1.png" alt="Logo"></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="booking-container">
+    <div class="booking-card">
+        <h2><i class="fa-solid fa-file-signature"></i> Guest Information</h2>
+        <p style="font-weight: 300; font-size: 13px; color: #777;">Please fill in the details to complete your reservation.</p>
+        <hr>
+
+        <form id="bookingForm">
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="field-with-icon">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="guestName" placeholder="Your full name" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Mobile Number</label>
+                    <div class="field-with-icon tel-field">
+                        <input type="tel" id="guestPhone" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>ID / Passport Number</label>
+                    <div class="field-with-icon">
+                        <i class="fa-solid fa-id-card"></i>
+                        <input type="text" id="guestID" placeholder="ID or Passport No" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Age</label>
+                    <div class="field-with-icon">
+                        <i class="fa-solid fa-cake-candles"></i>
+                        <input type="text" id="guestAge" placeholder="Ex: 25" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Check-in Date</label>
+                    <div class="field-with-icon">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <input type="text" id="checkInDate" placeholder="DD/MM/YYYY" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Check-out Date</label>
+                    <div class="field-with-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <input type="text" id="checkOutDate" placeholder="DD/MM/YYYY" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-confirm-booking" id="submitBtn">
+                Confirm & Pay Now
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyALHhhiMDNG7CV8pTYL1x3wl47LKcCSKv4",
+        authDomain: "hotelier-cdd5a.firebaseapp.com",
+        projectId: "hotelier-cdd5a",
+        storageBucket: "hotelier-cdd5a.firebasestorage.app",
+        messagingSenderId: "716934110388",
+        appId: "1:716934110388:web:7610047728b10462948be1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // কান্ট্রি কোড ড্রপডাউন ইনিশিয়েট করা
+    const phoneInput = document.querySelector("#guestPhone");
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "auto",
+        geoIpLookup: function(success, failure) {
+            fetch("https://ipapi.co/json").then(res => res.json()).then(data => success(data.country_code)).catch(() => success("BD"));
+        },
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    const bookingForm = document.getElementById('bookingForm');
+    bookingForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+
+        const bookingData = {
+            customerName: document.getElementById('guestName').value,
+            mobile: iti.getNumber(), // কান্ট্রি কোড সহ ফুল নাম্বার
+            idNumber: document.getElementById('guestID').value,
+            age: document.getElementById('guestAge').value,
+            checkIn: document.getElementById('checkInDate').value,
+            checkOut: document.getElementById('checkOutDate').value,
+            status: "Confirmed",
+            timestamp: new Date()
+        };
+
+        try {
+            await addDoc(collection(db, "orders"), bookingData);
+            alert("Success! Your booking has been confirmed.");
+            window.location.href = "index.html";
+        } catch (error) {
+            console.error(error);
+            alert("Error saving data.");
+            btn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>
