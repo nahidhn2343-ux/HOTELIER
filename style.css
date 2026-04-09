@@ -1231,7 +1231,7 @@ body {
 @media screen and (max-width: 768px) {
     /* ১. Navbar চিকন করা (৬০% শুরু) */
     .navbar {
-        height: 20px; /* হাইট কমিয়ে চিকন করা হয়েছে */
+        height: 45px; /* হাইট কমিয়ে চিকন করা হয়েছে */
     }
 
     .logo img {
@@ -1326,12 +1326,12 @@ body {
     }
 
     .logo img {
-        height: 45px; /* লোগো ছোট করা হয়েছে */
+        height: 60px; /* লোগো ছোট করা হয়েছে */
     }
 
     .btn-login {
-        padding: 3px 6px; /* বাটনটি চিকন করা হয়েছে */
-        font-size: 5px;
+        padding: 4px 6px; /* বাটনটি চিকন করা হয়েছে */
+        font-size: 8px;
     }
 
     /* ২. নেভিগেশন লিঙ্ক (যদি হাইড না করতে চান তবে স্পেস কমানো) */
