@@ -1063,40 +1063,104 @@ body {
 
 
 
-body {
-    background-color: #f0f2f5;
-    font-family: 'Inter', sans-serif;
+
+/* দুই কলাম লেআউট স্টাইল */
+.main-booking-wrapper {
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    gap: 30px;
+    padding: 0 20px;
+    align-items: flex-start;
 }
 
-.booking-container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
+.booking-left-section {
+    flex: 2; /* বাম পাশ বড় থাকবে */
 }
 
-.booking-card {
+.booking-right-section {
+    flex: 1; /* ডান পাশ ছোট থাকবে */
+    position: sticky;
+    top: 20px;
+}
+
+.summary-card {
     background: #fff;
-    padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* টাইটেল এবং টেক্সট চিকন করার জন্য */
-.booking-card h2 {
+.summary-card h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 18px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.hotel-summary-content img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.sum-details h4 {
+    margin: 5px 0;
     color: #003580;
-    font-weight: 300; /* একদম চিকন ফন্ট */
-    margin-bottom: 5px;
+}
+
+.sum-details p {
+    font-size: 14px;
+    color: #555;
+    margin: 3px 0;
+}
+
+.sum-about {
+    font-size: 12px !important;
+    color: #888 !important;
+    line-height: 1.4;
+    margin-top: 10px !important;
+}
+
+.total-price-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.total-price-row strong {
+    color: #ff6d00;
+}
+
+
+
+
+/* Input Grid Layout (যদি আগে না থাকে) */
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 15px;
+}
+
+/* Input Group Styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .input-group label {
-    font-weight: 400; /* চিকন লেবেল */
-    margin-bottom: 5px;
-    font-size: 13px;
-    color: #555;
-    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
 }
 
-/* ইনপুট ফিল্ড ও আইকন স্টাইল */
+/* Field with Icon Styling */
 .field-with-icon {
     position: relative;
     display: flex;
@@ -1105,44 +1169,42 @@ body {
 
 .field-with-icon i {
     position: absolute;
-    left: 12px;
-    color: #aaa;
+    left: 15px;
+    color: #003580; /* আপনার থিম কালার */
     font-size: 16px;
 }
 
 .field-with-icon input {
     width: 100%;
-    padding: 12px 12px 12px 40px; /* আইকনের জন্য জায়গা */
+    padding: 12px 12px 12px 45px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 15px;
-    font-weight: 300;
+    font-size: 14px;
+    transition: 0.3s;
 }
 
-/* কান্ট্রি কোড ইনপুটের স্পেশাল স্টাইল */
-.iti { width: 100%; }
-.field-with-icon.tel-field input {
-    padding-left: 50px !important;
+.field-with-icon input:focus {
+    border-color: #003580;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 53, 128, 0.1);
 }
 
-.input-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-top: 20px;
+/* Responsive for Mobile */
+@media (max-width: 600px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.btn-confirm-booking {
-    width: 100%;
-    background: #003580;
-    color: white;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 30px;
+/* মোবাইল রেসপন্সিভ (ছোট স্ক্রিনে কলামগুলো নিচে নিচে চলে আসবে) */
+@media (max-width: 768px) {
+    .main-booking-wrapper {
+        flex-direction: column;
+    }
+    .booking-left-section, .booking-right-section {
+        width: 100%;
+        flex: none;
+    }
 }
 
 @media (max-width: 600px) {

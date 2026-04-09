@@ -17,8 +17,8 @@
 
             <div id="login-section" class="form-wrapper">
                 <div class="header">
-                    <h2>Welcome back!</h2>
-                    <p>Enter your credentials to access your account.</p>
+                    <h2 id="login-main-title">Welcome back!</h2>
+                    <p id="login-sub-title">Enter your credentials to access your account.</p>
                 </div>
 
                 <div class="input-box">
@@ -46,6 +46,12 @@
                 </div>
 
                 <p class="footer-text">Don't have an account? <a href="#" id="to-signup">Create an account</a></p>
+                
+                <div style="text-align: center; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <button id="admin-toggle-btn" style="background: transparent; border: 1px solid #003580; color: #003580; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 13px;">
+                        <i class="fa-solid fa-user-shield"></i> Admin Login
+                    </button>
+                </div>
             </div>
 
             <div id="signup-section" class="form-wrapper" style="display: none;">
@@ -97,108 +103,136 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getAuth, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
-            sendEmailVerification,
-            GoogleAuthProvider,
-            FacebookAuthProvider,
-            signInWithPopup 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getAuth, 
+        createUserWithEmailAndPassword, 
+        signInWithEmailAndPassword, 
+        GoogleAuthProvider,
+        FacebookAuthProvider,
+        signInWithPopup 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // আপনার দেওয়া নতুন Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyALHhhiMDNG7CV8pTYL1x3wl47LKcCSKv4",
-            authDomain: "hotelier-cdd5a.firebaseapp.com",
-            projectId: "hotelier-cdd5a",
-            storageBucket: "hotelier-cdd5a.firebasestorage.app",
-            messagingSenderId: "716934110388",
-            appId: "1:716934110388:web:7610047728b10462948be1",
-            measurementId: "G-BYLJ7FDQX5"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyALHhhiMDNG7CV8pTYL1x3wl47LKcCSKv4",
+        authDomain: "hotelier-cdd5a.firebaseapp.com",
+        projectId: "hotelier-cdd5a",
+        storageBucket: "hotelier-cdd5a.firebasestorage.app",
+        messagingSenderId: "716934110388",
+        appId: "1:716934110388:web:7610047728b10462948be1",
+        measurementId: "G-BYLJ7FDQX5"
+    };
 
-        // Firebase ইনিশিয়ালাইজ করা
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
-        const fbProvider = new FacebookAuthProvider();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
+    const fbProvider = new FacebookAuthProvider();
 
-        // ফর্ম সুইচিং লজিক
-        const loginSection = document.getElementById('login-section');
-        const signupSection = document.getElementById('signup-section');
-        
-        document.getElementById('to-signup').onclick = (e) => {
-            e.preventDefault();
-            loginSection.style.display = 'none';
-            signupSection.style.display = 'block';
-        };
+    // অ্যাডমিন ক্রেডেনশিয়াল
+    const ADMIN_EMAIL = "admin@hotelier.com";
+    const ADMIN_PASSWORD = "admin123";
 
-        document.getElementById('to-login').onclick = (e) => {
-            e.preventDefault();
-            signupSection.style.display = 'none';
-            loginSection.style.display = 'block';
-        };
+    // এলিমেন্ট রেফারেন্স
+    const loginSection = document.getElementById('login-section');
+    const signupSection = document.getElementById('signup-section');
+    const adminToggleBtn = document.getElementById('admin-toggle-btn');
+    const loginTitle = document.getElementById('login-main-title');
+    const loginSubTitle = document.getElementById('login-sub-title');
+    const loginBtn = document.getElementById('login-btn');
 
-        // সাইন আপ এবং ইমেল ভেরিফিকেশন
-        document.getElementById('signup-btn').onclick = async () => {
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
+    let isAdminMode = false;
 
-            if(!email || !password) return alert("Please fill all fields!");
+    // অ্যাডমিন মোড টগল করা
+    adminToggleBtn.onclick = () => {
+        isAdminMode = !isAdminMode;
+        if (isAdminMode) {
+            loginTitle.innerText = "Admin Access";
+            loginSubTitle.innerText = "Please enter admin secure credentials.";
+            loginBtn.innerText = "Admin Log In";
+            adminToggleBtn.innerText = "Switch to User Login";
+        } else {
+            loginTitle.innerText = "Welcome back!";
+            loginSubTitle.innerText = "Enter your credentials to access your account.";
+            loginBtn.innerText = "Log In";
+            adminToggleBtn.innerText = "Admin Login";
+        }
+    };
 
+    document.getElementById('to-signup').onclick = (e) => {
+        e.preventDefault();
+        loginSection.style.display = 'none';
+        signupSection.style.display = 'block';
+    };
+
+    document.getElementById('to-login').onclick = (e) => {
+        e.preventDefault();
+        signupSection.style.display = 'none';
+        loginSection.style.display = 'block';
+    };
+
+    // সাইন আপ লজিক (ভেরিফিকেশন সরিয়ে সরাসরি হোম পেজে রিডাইরেক্ট)
+    document.getElementById('signup-btn').onclick = async () => {
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+
+        if(!email || !password) return alert("Please fill all fields!");
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            alert("Account created successfully! Welcome to Hotelier.");
+            // সরাসরি হোম পেজে নিয়ে যাওয়া
+            window.location.href = "index.html";
+        } catch (error) {
+            alert("Registration Error: " + error.message);
+        }
+    };
+
+    // লগইন লজিক (ভেরিফিকেশন চেক ছাড়াই সরাসরি লগইন)
+    document.getElementById('login-btn').onclick = async () => {
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        if(!email || !password) return alert("Please enter email and password!");
+
+        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+            alert("Welcome Admin! Redirecting to Dashboard...");
+            window.location.href = "admin.html";
+            return;
+        }
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            alert("Success! Welcome back to Hotelier.");
+            // সরাসরি হোম পেজে নিয়ে যাওয়া
+            window.location.href = "index.html";
+        } catch (error) {
+            alert("Login failed: " + error.message);
+        }
+    };
+
+    // সোশ্যাল লগইন
+    document.querySelectorAll('.social-google').forEach(btn => {
+        btn.onclick = async () => {
             try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                await sendEmailVerification(auth.currentUser);
-                alert("Account created! A verification email has been sent. Please check your inbox before logging in.");
+                await signInWithPopup(auth, googleProvider);
+                window.location.href = "index.html";
             } catch (error) {
-                alert("Error: " + error.message);
+                alert("Google login error: " + error.message);
             }
         };
+    });
 
-        // লগইন লজিক
-        document.getElementById('login-btn').onclick = async () => {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
+    document.querySelectorAll('.social-fb').forEach(btn => {
+        btn.onclick = async () => {
             try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                if(auth.currentUser.emailVerified) {
-                    alert("Success! Welcome to Hotelier.");
-                    window.location.href = "index.html"; // আপনার মেইন পেজের নাম এখানে দিন
-                } else {
-                    alert("Please verify your email first! Check your inbox.");
-                }
+                await signInWithPopup(auth, fbProvider);
+                window.location.href = "index.html";
             } catch (error) {
-                alert("Login failed: " + error.message);
+                alert("Facebook login error: " + error.message);
             }
         };
-
-        // গুগল লগইন
-        document.querySelectorAll('.social-google').forEach(btn => {
-            btn.onclick = async () => {
-                try {
-                    await signInWithPopup(auth, googleProvider);
-                    window.location.href = "index.html";
-                } catch (error) {
-                    alert("Google login error: " + error.message);
-                }
-            };
-        });
-
-        // ফেসবুক লগইন
-        document.querySelectorAll('.social-fb').forEach(btn => {
-            btn.onclick = async () => {
-                try {
-                    await signInWithPopup(auth, fbProvider);
-                    window.location.href = "index.html";
-                } catch (error) {
-                    alert("Facebook login error: " + error.message);
-                }
-            };
-        });
-    </script>
+    });
+</script>
 </body>
 </html>

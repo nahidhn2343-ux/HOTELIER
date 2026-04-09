@@ -220,6 +220,21 @@
 
     const modal = document.getElementById('bookingModal');
     const closeModal = document.getElementById('closeModal');
+    
+    // --- আপডেট: বর্তমানে সিলেক্ট করা হোটেলের ডাটা রাখার জন্য ভেরিয়েবল ---
+    let currentSelectedHotel = null;
+
+    // --- আপডেট: Confirm Booking Now বাটনে ক্লিক করলে ডাটা সেভ হয়ে পেজ পরিবর্তন হবে ---
+    const confirmBtn = modal.querySelector('button'); 
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', () => {
+            if (currentSelectedHotel) {
+                // ব্রাউজারের লোকাল স্টোরেজে ডাটা সেভ করা হচ্ছে
+                localStorage.setItem('selectedHotel', JSON.stringify(currentSelectedHotel));
+                window.location.href = "book.html";
+            }
+        });
+    }
 
     document.querySelector('.btn-search').addEventListener('click', async (e) => {
         e.preventDefault();
@@ -257,9 +272,18 @@
                         </div>
                     `;
 
-                    // "Book Now" বাটনে ক্লিক করলে পপ-আপ দেখানোর লজিক
+                    // --- আপডেট: Book Now ক্লিক করলে হোটেলের তথ্য ভেরিয়েবলে জমা হবে ---
                     card.querySelector('.book-now-btn').onclick = (event) => {
-                        event.stopPropagation(); // কার্ডের ক্লিক ইভেন্ট থামানোর জন্য
+                        event.stopPropagation();
+                        
+                        // ডাটা অবজেক্ট তৈরি
+                        currentSelectedHotel = {
+                            name: hotel.Name,
+                            price: hotel.Price,
+                            image: hotel['Image-url'],
+                            location: hotel.City + ", " + hotel.Country
+                        };
+
                         document.getElementById('m-img').src = hotel['Image-url'];
                         document.getElementById('m-name').innerText = hotel.Name;
                         document.getElementById('m-loc').innerText = hotel.City + ", " + hotel.Country;
@@ -267,7 +291,6 @@
                         modal.classList.add('active');
                     };
 
-                    // কার্ডে ক্লিক করলে ডেস্কটপ প্রিভিউ
                     card.onclick = () => {
                         document.getElementById('previewImg').style.backgroundImage = `url('${hotel['Image-url']}')`;
                         document.getElementById('previewName').innerText = hotel.Name;
@@ -292,7 +315,6 @@
         }
     });
 
-    // পপ-আপ বন্ধ করার লজিক
     closeModal.onclick = () => modal.classList.remove('active');
     window.onclick = (e) => { if (e.target == modal) modal.classList.remove('active'); };
 </script>
